@@ -43,4 +43,10 @@ public class SkillManager implements SkillService{
 		(this.skillDao.findAllByCandidateCv_Id(candidateCvId), "Data Listelendi");
 	}
 
+	@Override
+	public Skill findById(int skillId) {
+		// TODO Auto-generated method stub
+		return this.skillDao.findById(skillId);
+	}
+
 }

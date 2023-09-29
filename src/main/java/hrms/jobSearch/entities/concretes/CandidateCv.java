@@ -33,7 +33,7 @@ import lombok.NoArgsConstructor;
 @Table(name="candidate_cvs")
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "skills", "schools", "jobExperiences"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "skills", "schools", "jobExperiences", "languages", "webaddresses"})
 public class CandidateCv {
 
 	@NotNull
@@ -51,11 +51,12 @@ public class CandidateCv {
 //	@JsonIgnore
 //	@OneToMany(mappedBy = "candidateCv")
 //	private List<School> schools;
-	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinTable(
 	  name = "candidate_cv_schools", 
-	  joinColumns = @JoinColumn(name = "candidate_cv_id"), 
-	  inverseJoinColumns = @JoinColumn(name = "school_id"))
+	  joinColumns = @JoinColumn(name = "candidate_cv_id", referencedColumnName = "id"), 
+	  inverseJoinColumns = @JoinColumn(name = "school_id", referencedColumnName = "id"))
+	
 	private Set<School> schools= new HashSet<School>();
 	
 	
@@ -63,17 +64,24 @@ public class CandidateCv {
 //	@OneToMany(mappedBy = "candidateCv")
 //	private List<JobExperience> jobExperiences;
 	
-	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinTable(
 	  name = "candidate_cv_job_experiences", 
-	  joinColumns = @JoinColumn(name = "candidate_cv_id"), 
-	  inverseJoinColumns = @JoinColumn(name = "job_experience_id"))
+	  joinColumns = @JoinColumn(name = "candidate_cv_id", referencedColumnName = "id"), 
+	  inverseJoinColumns = @JoinColumn(name = "job_experience_id", referencedColumnName = "id"))
 	private Set<JobExperience> jobExperiences= new HashSet<JobExperience>();
 	
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "candidateCv")
-	private List<Language> languages;
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "candidateCv")
+//	private List<Language> languages;
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@JoinTable(
+	  name = "candidate_cv_languages", 
+	  joinColumns = @JoinColumn(name = "candidate_cv_id", referencedColumnName = "id"), 
+	  inverseJoinColumns = @JoinColumn(name = "language_id", referencedColumnName = "id"))
+	private Set<Language> languages= new HashSet<Language>();
+
 	
 	@JsonIgnore
     @OneToOne
@@ -81,19 +89,25 @@ public class CandidateCv {
     private CandidateImage candidateImage;
 	
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "candidateCv")
-	private List<WebAddress> webaddresses;
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "candidateCv")
+//	private List<WebAddress> webaddresses;
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@JoinTable(
+	  name = "candidate_cv_webaddresses", 
+	  joinColumns = @JoinColumn(name = "candidate_cv_id", referencedColumnName = "id"), 
+	  inverseJoinColumns = @JoinColumn(name = "web_address_id", referencedColumnName = "id"))
+	private Set<WebAddress> webaddresses = new HashSet<WebAddress>();
 	
 
-	@JsonIgnore
+//	@JsonIgnore
 //	@OneToMany(mappedBy = "candidateCv")
 //	private List<Skill> skills;
-	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinTable(
 	  name = "candidate_cv_skills", 
-	  joinColumns = @JoinColumn(name = "candidate_cv_id"), 
-	  inverseJoinColumns = @JoinColumn(name = "skill_id"))
+	  joinColumns = @JoinColumn(name = "candidate_cv_id", referencedColumnName = "id"), 
+	  inverseJoinColumns = @JoinColumn(name = "skill_id", referencedColumnName = "id"))
 	private Set<Skill> skills = new HashSet<Skill>();
 	
 
@@ -102,9 +116,18 @@ public class CandidateCv {
 	@OneToOne
 	private Candidate candidate;
 	
-	/*
-	public void addSkill(Skill skill) {
-		this.skills.add(skill);
-	}
-	*/
+	
+//	public void addSkill(Skill skill) {
+//		this.skills.add(skill);
+//		skill.getCandidateCv().add(this);
+//	}
+//	
+//	  public void removeSkill(int skillId) {
+//		    Skill skill = this.skills.stream().filter(t -> t.getId() == skillId).findFirst().orElse(null);
+//		    if (skill != null) {
+//		      this.skills.remove(skill);
+//		      skill.getCandidateCv().remove(this);
+//		    }
+//		  }
+	
 }

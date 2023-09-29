@@ -9,6 +9,8 @@ import hrms.jobSearch.entities.concretes.WebAddress;
 public interface WebAddressDao extends JpaRepository<WebAddress, Integer>{
 	
 	List<WebAddress> findAllByCandidateCv_Id(int candidateCvId);
+	
+	WebAddress findById(int webAdressId);
 
 
 }

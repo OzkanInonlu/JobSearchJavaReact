@@ -71,13 +71,43 @@ public interface CandidateCvDao extends JpaRepository<CandidateCv, Integer>{
     )
     void addJobExperienceToCv(int candidateCvId, int jobExperienceId);
 	
+	
+	//languages
+	//check if the school is already in cv
+    @Query(
+    		value = "SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END "
+    		+ "FROM candidate_cv_languages e "
+    		+ "WHERE e.language_id = :languageId", nativeQuery = true)
+    boolean existsLanguageInCv(int languageId);
+	
+	@Modifying//EĞER SELECT DIŞINDA BİR SORGU YAPACAKSAK VERİ TABANINDAKİ BİLGİYİ MODİFY EDECEK BUNU KULLANMALIYIZ
+    @Query(
+            value = "INSERT INTO candidate_cv_languages(candidate_cv_id, language_id)" +
+                    "VALUES(:candidateCvId, :languageId)", nativeQuery = true
+    )
+    void addLanguageToCv(int candidateCvId, int languageId);
+	
+	
+	
+	//web addresses
+	//check if the school is already in cv
+    @Query(
+    		value = "SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END "
+    		+ "FROM candidate_cv_webaddresses e "
+    		+ "WHERE e.web_address_id = :webAddressId", nativeQuery = true)
+    boolean existsWebAddressInCv(int webAddressId);
+	
+	@Modifying//EĞER SELECT DIŞINDA BİR SORGU YAPACAKSAK VERİ TABANINDAKİ BİLGİYİ MODİFY EDECEK BUNU KULLANMALIYIZ
+    @Query(
+            value = "INSERT INTO candidate_cv_webaddresses(candidate_cv_id, web_address_id)" +
+                    "VALUES(:candidateCvId, :webAddressId)", nativeQuery = true
+    )
+    void addWebAddressToCv(int candidateCvId, int webAddressId);
+	
+	
+	
 
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
@@ -108,6 +138,8 @@ public interface CandidateCvDao extends JpaRepository<CandidateCv, Integer>{
 		       "FROM CandidateCv cv " +
 		       "INNER JOIN cv.skills s "
 		       + "where cv.id=:candidateCvId")
+//	@Query("SELECT NEW hrms.jobSearch.entities.dtos.CandidateCvWithSkillDto(cv.id, CAST(cv.skills AS java.util.Set)) " +
+//		       "FROM CandidateCv cv WHERE cv.id = :candidateCvId")
 //	@Query("SELECT NEW hrms.jobSearch.entities.dtos.CandidateCvWithSkillDto(" +
 //		       "cv.id, cv.candidate.id, " +
 //		       "STRING_AGG(s.skillName, ', ') as skills) " +

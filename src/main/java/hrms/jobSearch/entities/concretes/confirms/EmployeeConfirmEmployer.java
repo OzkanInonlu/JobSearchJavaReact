@@ -11,7 +11,7 @@ import hrms.jobSearch.entities.concretes.Employer;
 public class EmployeeConfirmEmployer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     // Relationships
     @ManyToOne

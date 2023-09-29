@@ -70,6 +70,19 @@ public class CandidateCvsController {
 	}
 	
 	
+	@PostMapping("/addLanguageToCv")
+	public Result addLanguageToCv(@RequestParam int candidateCvId, @RequestParam int languageId) {
+		// TODO Auto-generated method stub
+		return this.candidateCvService.addLanguageToCv(candidateCvId, languageId);
+	}
+	
+	@PostMapping("/addWebAddressToCv")
+	public Result addWebAddressToCv(@RequestParam int candidateCvId, @RequestParam int webAddressId) {
+		// TODO Auto-generated method stub
+		return this.addWebAddressToCv(candidateCvId, webAddressId);
+	}
+	
+	
 	
 	
 	

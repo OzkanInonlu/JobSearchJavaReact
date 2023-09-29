@@ -57,4 +57,10 @@ public class JobExperienceManager implements JobExperienceService{
 		(this.jobExperienceDao.findAllByCandidateCv_Id(candidateCvId), "Data Listelendi");
 	}
 
+	@Override
+	public JobExperience findById(int id) {
+		// TODO Auto-generated method stub
+		return jobExperienceDao.findById(id);
+	}
+
 }

@@ -43,4 +43,10 @@ public class SkillsController {
 		// TODO Auto-generated method stub
 		return this.skillService.findAllByCandidateCv_Id(candidateCvId);
 	}
+	
+	@GetMapping("/findById")
+	public Skill findById(@RequestParam int skillId) {
+
+		return this.skillService.findById(skillId);
+	}
 }

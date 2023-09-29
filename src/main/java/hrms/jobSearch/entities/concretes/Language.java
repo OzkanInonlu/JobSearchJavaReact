@@ -1,11 +1,15 @@
 package hrms.jobSearch.entities.concretes;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -45,9 +49,13 @@ public class Language {
 	private int languageLevel;
 	
 	//@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "candidate_cv_id")
-	private CandidateCv candidateCv;
+//	@ManyToOne
+//	@JoinColumn(name = "candidate_cv_id")
+//	private CandidateCv candidateCv;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "languages")
+	private Set<CandidateCv> candidateCv = new HashSet<CandidateCv>();
 	
 
 }

@@ -31,6 +31,13 @@ public interface CandidateCvService {
 	
 	Result addJobExperienceToCv(int candidateCvId, int jobExperienceId);
 	
+	Result addLanguageToCv(int candidateCvId, int languageId);
+
+	Result addWebAddressToCv(int candidateCvId, int webAddressId);
+
+	
+	
+	
 	DataResult<CandidateCv> findById(int candidateCvId);
 	
 	

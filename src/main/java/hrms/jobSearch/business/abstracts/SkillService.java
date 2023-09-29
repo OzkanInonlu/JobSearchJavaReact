@@ -12,6 +12,7 @@ public interface SkillService {
 	Result add(Skill skill);
 	
 	DataResult<List<Skill>> findAllByCandidateCv_Id(int candidateCvId);
+	Skill findById(int skillId);
 
 
 }
